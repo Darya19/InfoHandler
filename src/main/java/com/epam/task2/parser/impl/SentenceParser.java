@@ -10,20 +10,20 @@ import java.util.List;
 
 public class SentenceParser implements BaseParser {
 
-    private static final String SENTENCE_SEPARATOR = "[.!?]\\s*";
+    private static final String LEXEME_SEPARATOR = "\\s";
 
     @Override
     public List<Component> parse(String text) {
-        List<Component> sentences = new ArrayList<>();
-        String[] stringSentences = text.split(SENTENCE_SEPARATOR);
-        for (String element : stringSentences) {
-            Component sentence = new TextComposite(ComponentType.SENTENCE);
-            List<Component> lexemes = new LexemeParser().parse(element);
-            for (Component lexeme : lexemes) {
-                sentence.add(lexeme);
+        List<Component> lexemes = new ArrayList<>();
+        String[] stringLexemes = text.split(LEXEME_SEPARATOR);
+        for (String element : stringLexemes) {
+            Component lexemeComponent = new TextComposite(ComponentType.LEXEME);
+            List<Component> symbols = new LexemeParser().parse(element);
+            for (Component symbol : symbols) {
+                lexemeComponent.add(symbol);
             }
-            sentences.add(sentence);
+            lexemes.add(lexemeComponent);
         }
-        return sentences;
+        return lexemes;
     }
 }

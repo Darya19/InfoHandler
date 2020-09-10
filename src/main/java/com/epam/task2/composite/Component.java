@@ -1,5 +1,6 @@
 package com.epam.task2.composite;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface Component {
@@ -8,7 +9,9 @@ public interface Component {
 
     void remove(Component component);
 
-    Optional<Component> getChild(int index);
+    Component getChild(int index);
 
     public ComponentType getType();
+
+    public List<Component> getTextComponents();
 }

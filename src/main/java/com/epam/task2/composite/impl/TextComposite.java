@@ -5,7 +5,6 @@ import com.epam.task2.composite.ComponentType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class TextComposite implements Component {
 
@@ -24,6 +23,14 @@ public class TextComposite implements Component {
         return type;
     }
 
+    public List<Component> getTextComponents() {
+        return textComponents;
+    }
+
+    public int size() {
+        return textComponents.size();
+    }
+
     @Override
     public void add(Component component) {
         textComponents.add(component);
@@ -35,11 +42,8 @@ public class TextComposite implements Component {
     }
 
     @Override
-    public Optional<Component> getChild(int index) {
-        if (index >= textComponents.size() && index < 0) {
-            return Optional.empty();
-        }
-        return Optional.of(textComponents.get(index));
+    public Component getChild(int index) {
+        return textComponents.get(index);
     }
 
     @Override

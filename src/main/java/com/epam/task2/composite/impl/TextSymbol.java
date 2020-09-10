@@ -3,7 +3,7 @@ package com.epam.task2.composite.impl;
 import com.epam.task2.composite.Component;
 import com.epam.task2.composite.ComponentType;
 
-import java.util.Optional;
+import java.util.List;
 
 public class TextSymbol implements Component {
 
@@ -13,6 +13,10 @@ public class TextSymbol implements Component {
     public TextSymbol(String symbol, ComponentType type) {
         this.symbol = symbol;
         this.type = type;
+    }
+
+    public String getSymbol() {
+        return symbol;
     }
 
     @Override
@@ -26,13 +30,18 @@ public class TextSymbol implements Component {
     }
 
     @Override
-    public Optional<Component> getChild(int index) {
+    public Component getChild(int index) {
         throw new UnsupportedOperationException("impossible remove symbol ");
     }
 
     @Override
     public ComponentType getType() {
         return type;
+    }
+
+    @Override
+    public List<Component> getTextComponents() {
+        throw new UnsupportedOperationException("symbol class hasn't got inner object");
     }
 
     @Override

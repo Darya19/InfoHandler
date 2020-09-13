@@ -2,21 +2,25 @@ package com.epam.task2.composite.impl;
 
 import com.epam.task2.composite.Component;
 import com.epam.task2.composite.ComponentType;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TextComposite implements Component {
 
-    private static final String PARAGRAPH_SEPARATOR = "\\n\\t";
-    private static final String SENTENCE_SEPARATOR = "[.!?]\\s*";
-    private static final String LEXEME_SEPARATOR = "\\s";
-
+    private static final String PARAGRAPH_SEPARATOR = "\n";
+    private static final String LEXEME_SEPARATOR = " ";
     private ComponentType type;
     List<Component> textComponents = new ArrayList<>();
 
+    private static Logger logger = LogManager.getLogger();
+
     public TextComposite(ComponentType type) {
         this.type = type;
+        logger.log(Level.DEBUG, "was created object type " + type);
     }
 
     public ComponentType getType() {
@@ -29,6 +33,11 @@ public class TextComposite implements Component {
 
     public int size() {
         return textComponents.size();
+    }
+
+    @Override
+    public String getSymbol() {
+        throw new UnsupportedOperationException("");//TODO
     }
 
     @Override
@@ -48,24 +57,18 @@ public class TextComposite implements Component {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         for (Component component : textComponents) {
-            if (ComponentType.PARAGRAPH.equals(component.getType())) {
-                sb.append(PARAGRAPH_SEPARATOR);
+            if (component.getType().equals(ComponentType.PARAGRAPH)) {
+                builder.append(PARAGRAPH_SEPARATOR);
             }
-            if (ComponentType.SENTENCE.equals(component.getType())) {
-                sb.append(SENTENCE_SEPARATOR);
+            if (component.getType().equals(ComponentType.LEXEME)) {
+                builder.append(LEXEME_SEPARATOR);
+
             }
-            if (ComponentType.LEXEME.equals(component.getType())) {
-                sb.append(LEXEME_SEPARATOR);
-            }
-            if (ComponentType.LETTER_OR_DIGIT.equals(component.getType())) {
-                sb.append(component);
-            }
-            if (ComponentType.PUNCTUATION.equals(component.getType())) {
-                sb.append(component);
-            }
+            builder.append(component.toString());
+
         }
-        return sb.toString();
+        return builder.toString();
     }
 }

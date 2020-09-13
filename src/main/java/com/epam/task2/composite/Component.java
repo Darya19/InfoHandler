@@ -1,7 +1,6 @@
 package com.epam.task2.composite;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface Component {
 
@@ -14,4 +13,6 @@ public interface Component {
     public ComponentType getType();
 
     public List<Component> getTextComponents();
+
+    public String getSymbol();
 }

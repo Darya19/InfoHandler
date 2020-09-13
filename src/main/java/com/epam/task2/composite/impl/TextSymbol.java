@@ -2,6 +2,9 @@ package com.epam.task2.composite.impl;
 
 import com.epam.task2.composite.Component;
 import com.epam.task2.composite.ComponentType;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -10,9 +13,12 @@ public class TextSymbol implements Component {
     private String symbol;
     private ComponentType type;
 
+    private static Logger logger = LogManager.getLogger();
+
     public TextSymbol(String symbol, ComponentType type) {
         this.symbol = symbol;
         this.type = type;
+        logger.log(Level.DEBUG, "was created object type" + type);
     }
 
     public String getSymbol() {

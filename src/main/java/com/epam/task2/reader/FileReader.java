@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class FileReader {
@@ -20,8 +18,8 @@ public class FileReader {
 
     private static Logger logger = LogManager.getLogger();
 
-    public List<String> readFromFile(String file) throws ProjectException {
-        List<String> stringLines = new ArrayList<>();
+    public String readFromFile(String file) throws ProjectException {
+        StringBuilder builder = new StringBuilder();
         String line;
         Path path = Paths.get(file);
         if (Files.notExists(path)) {
@@ -30,10 +28,10 @@ public class FileReader {
         }
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             while ((line = reader.readLine()) != null) {
-                stringLines.add(line);
+                builder.append(line).append("\n");
             }
             logger.log(Level.INFO, "file was read");
-            return stringLines;
+            return builder.toString();
         } catch (IOException e) {
             throw new ProjectException("reading issues", e);
         }
